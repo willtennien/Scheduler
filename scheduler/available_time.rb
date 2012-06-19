@@ -3,22 +3,20 @@ module TW2
 		attr_reader :value
 
 		def initialize *v
-			if v.length == 0
-				@value = []
-			if (v.length == 1) && (v[0].length != 2)
+			if v.length == 1
 				@value = v[0]
 			else
 				@value = v
 			end
 		end
 
-		# def deep_clone
-		# 	result = []
-		# 	@value.each do |period|
-		# 		result.push period.clone
-		# 	end
-		# 	return result
-		# end
+		def deep_clone
+			result = []
+			@value.each do |period|
+				result.push period.clone
+			end
+			return result
+		end
 
 		def to_s
 			result = "<AvailableTime: "

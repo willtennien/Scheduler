@@ -35,7 +35,7 @@ module TW2
 		end
 
 		def remove_of person_searched
-			self = self - self.of person_searched
+			self.replace self - (self.of person_searched)
 		end
 
 		def supply_ranking n

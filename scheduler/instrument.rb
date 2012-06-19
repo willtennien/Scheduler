@@ -1,13 +1,11 @@
 module TW2
 	class Instrument
-		attr_reader :person
+		attr_reader :name, :person
 
 		def initialize name, person
 			@person = person
 			@name = name
-			@availability = Hash.new do |demo|
-				raise " ! error: #{self} cannot find availability for #{demo}"
-			end
+			@availability = Hash.new 
 		end
 
 		# def deep_clone
@@ -23,7 +21,14 @@ module TW2
 				return a
 			end
 
+			p @person.schedule
+			p demo.schedule
 			a = @person.schedule.vertex demo.schedule
+			if a
+				return a
+			else
+				raise " ! error: #{self} cannot find availability for #{demo}"
+			end
 		end
 
 	end

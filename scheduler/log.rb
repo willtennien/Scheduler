@@ -17,7 +17,7 @@ module TW2
 			if @matches.empty?
 				return nil
 			else
-				return [Marshal.load @instruments, Marshal.load @demos, @matches.shift]
+				return [(Marshal.load @instruments), (Marshal.load @demos), @matches.shift]
 			end
 		end
 
@@ -28,7 +28,7 @@ module TW2
 		private 
 
 		def open
-			return [Marshal.load @instruments, Marshal.load @demos, @matches]
+			return [(Marshal.load @instruments), (Marshal.load @demos), @matches]
 		end
 
 	end

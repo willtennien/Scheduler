@@ -1,4 +1,4 @@
-class TW2
+module TW2
 	class Match #A Match shouldn't be able to be altered; no methods or accessors should be able to alter a Match.
 		def initialize instrument, demo
 			@instrument_name = instrument.name
@@ -10,7 +10,7 @@ class TW2
 			return "#{@instrument_person_name}'s @{instrument_name} is assigned to #{demo_name}."
 		end
 
-		def value_with instruments, demos
+		def value_with instruments, demos, dconst, cconst, aconst
 			instruments.each do |i|
 				if (i.name == instrument_name) && (i.person.name == instrument_person_name)
 					instrument = i
