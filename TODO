@@ -1,0 +1,16 @@
+Tasks
+{ In approximate order of importance, high==high }
+
+
+
+Scheduler algorithm
+Design and plan storage, data representation & DB structure
+Code the parts of the site that people enter their info
+Times-available UI element
+   Have its data be submittable in a form
+   Tidy up the actual code
+User authentication
+Image uploading
+Deploy app
+Page layout
+Emailer
