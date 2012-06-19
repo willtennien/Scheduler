@@ -7,12 +7,13 @@ module TW2
 		end
 
 		def to_s
-			return "#{@instrument_person_name}'s @{instrument_name} is assigned to #{demo_name}."
+			return "<Match: #{@instrument_person_name}'s #{@instrument_name} is assigned to #{@demo_name}>"
 		end
 
 		def value_with instruments, demos, dconst, cconst, aconst
+			instrument, demo = nil, nil
 			instruments.each do |i|
-				if (i.name == instrument_name) && (i.person.name == instrument_person_name)
+				if (i.name == @instrument_name) && (i.person.name == @instrument_person_name)
 					instrument = i
 					break
 				end
@@ -20,34 +21,39 @@ module TW2
 
 			instrument_availability_elsewhere = 0
 			demos.each do |d|
-				if d.name == demo_name
+				if d.name == @demo_name
 					demo = d
 				else
-					instrument_availability_elsewhere += instrument.availability_for d
+					instrument_availability_elsewhere += (instrument.availability_for d).magnitude
 				end
 			end
 
 			unless instrument && demo
-				raise " ! error: #{self} cannot find either #{instrument_person_name}'s #{instrument_name} or #{demo_name}."
+				raise " ! error: #{self} cannot find either #{@instrument_person_name}'s #{@instrument_name} or #{@demo_name}."
 			end
 
-			return (-$d*demo.required_instruments + $c*demo.required_instruments*(instrument.availability_for demo).magnitude - $a*instrument_availability_elsewhere)
+			return (-dconst*demo.required_instruments.length + cconst*demo.required_instruments.length*(instrument.availability_for demo).magnitude - aconst*instrument_availability_elsewhere)
 		end
 
 		def unpack instruments, demos
+			instrument, demo = nil, nil
 			instruments.each do |i|
-				if (i.name == instrument_name) && (i.person.name == instrument_person_name)
+				if (i.name == @instrument_name) && (i.person.name == @instrument_person_name)
 					instrument = i
 					break
 				end
 			end
 
+			raise " ! error: #{self} cannot find #{@instrument_person_name}'s \"#{@instrument_name.inspect}\" in #{instruments}." unless instrument
+
 			demos.each do |d|
-				if d.name == demo_name
+				if d.name == @demo_name
 					demo = d
 					break
 				end
 			end
+
+			raise " ! error: #{self} cannot find \"#{@demo_name.inspect}\" in #{demos}." unless demo
 
 			return [instrument,demo]
 		end

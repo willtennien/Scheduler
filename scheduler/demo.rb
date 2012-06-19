@@ -14,13 +14,35 @@ module TW2
 			#@closed = false
 		end
 
-		def required instrument
+		def to_s
+			return "<#{@name} requires #{@required_instruments}, but has #{@instruments}; its @duration is #{@duration}, and @availability is #{@availability}.>"
+		end
+
+		def required instrument_name
+			sum = 0
+			@required_instruments.each do |required_name|
+				if required_name == instrument_name
+					sum += 1
+				end
+			end
 			return sum
 		end
 
+		def fulfilled?
+			return @required_instruments.empty?
+		end
+
+		def requires? instr_name
+			@required_instruments.each do |required_name|
+				return true if instr_name == required_name
+			end
+			return false
+		end
+
 		def remove_requirement instr_name
-			@required_instruments.each_index do |i,instr|
-				if instr.name == instr_name
+			index = nil
+			@required_instruments.each_index do |i|
+				if @required_instruments[i] == instr_name
 					index = i
 					break
 				end
@@ -28,7 +50,7 @@ module TW2
 			if index
 				@required_instruments.delete_at index 
 			else
-				raise " ! error: #{self} tried to remove a requirement for a #{instr_name}, which it does not require it in the first place."
+				raise " ! error: #{self.name} tried to remove a requirement for a #{instr_name}, \nwhich it does not require it in the first place.\nRather, it still requires #{@required_instruments}."
 			end
 		end
 

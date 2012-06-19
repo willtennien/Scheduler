@@ -1,8 +1,7 @@
 module TW2
 	class InstrumentCollection < Array
-		def supply instr_searched
+		def supply name_searched
 			d = 0
-			name_searched = instr_searched.name
 			each do |instrument|
 				if instrument.name == name_searched
 					d += 1.0/instrument.person.instruments.length

@@ -2,12 +2,8 @@ module TW2
 	class AvailableTime
 		attr_reader :value
 
-		def initialize *v
-			if v.length == 1
-				@value = v[0]
-			else
-				@value = v
-			end
+		def initialize v
+			@value = v
 		end
 
 		def deep_clone
@@ -15,7 +11,7 @@ module TW2
 			@value.each do |period|
 				result.push period.clone
 			end
-			return result
+			return AvailableTime.new result
 		end
 
 		def to_s
@@ -35,8 +31,8 @@ module TW2
 		end
 
 		def has_contiguous? time
-			each do |a|
-				if a.magnitude >= time
+			@value.each do |a|
+				if (a.last - a.first) >= time
 					return true
 				end
 			end
@@ -105,7 +101,7 @@ module TW2
 			if ((a = as.shift))
 				u = [a]
 			else
-				return u.replace bs
+				return AvailableTime.new [].replace bs
 			end 
 			a = as.shift
 			b = bs.shift

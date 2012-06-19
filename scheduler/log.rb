@@ -1,28 +1,30 @@
 module TW2
 	class Log
-		attr_accessor :instruments, :demos
+		attr_accessor :instruments, :demos, :identifier
 
 		# def initialize
 		# 	@instruments = "" #remember that "instruments" is a string!
 		# 	@demos = "" #remember that "demos" is a string!
 		# end
-
-		def initialize instruments, demos, matches
+		@@id_counter = 1
+		def initialize instruments, demos, matches, *others
 			@instruments = Marshal.dump instruments
 			@demos = Marshal.dump demos
-			@matches = matches #Matches cannot be altered.
-		end
+			@matches = matches.clone #Matches cannot be altered.
+			unless others.empty?
+				@identifier = others[0] 
+			else
+				@identifier = @@id_counter
+				@@id_counter += 1
+			end
+			end
 
 		def recover
-			if @matches.empty?
-				return nil
-			else
-				return [(Marshal.load @instruments), (Marshal.load @demos), @matches.shift]
-			end
+			return [(Marshal.load @instruments), (Marshal.load @demos), @matches.shift]
 		end
 
 		def to_s
-			return "#{self}:\n    #{Marshal.load @instruments}\n    #{Marshal.load @demos}"
+			return "<Log n.#{@identifier}>"
 		end
 
 		private 
@@ -30,6 +32,5 @@ module TW2
 		def open
 			return [(Marshal.load @instruments), (Marshal.load @demos), @matches]
 		end
-
 	end
 end

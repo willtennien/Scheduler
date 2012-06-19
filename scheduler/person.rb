@@ -1,6 +1,6 @@
 module TW2
 	class Person
-		attr_accessor :instruments, :schedule
+		attr_accessor :name, :instruments, :schedule
 
 		def initialize name, schedule
 			@name = name

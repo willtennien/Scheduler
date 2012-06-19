@@ -22,54 +22,64 @@ module TW2
 			@demos = DemoCollection.new
 			@matches = []
 			@saved_data = []
+			@solutions = [] 
 		end
 
 		private
 
-		def price_of instrument  #price is the difference between an instrument's demand and supply (price = demand - supply)
-			return @demos.demand instrument - (@instruments.supply instrument)
+		def solution_score instruments, demos
+			raise " ! error: I attempted to calculate score a solution before completely calculating it." unless demos.fulfilled? 
+			return demos.length
+		end
+
+		def price_of instrument_name  #price is the quotient of an instrument's demand and supply (price = demand / supply)
+			return (@demos.demand instrument_name).to_f / (@instruments.supply instrument_name).to_f
 		end
 
 		def priciest_instrument #returns a name
 			types = Hash.new 
 			@instruments.each do |instrument|
 				types[instrument.name] ||= 0
-				types[instrument.name] += price_of instrument 
+				types[instrument.name] += price_of instrument.name
 			end
 
 			return (types.sort {|a,b| -(a[1]<=>b[1]) }).first.first #the second ".first" extractes the instrument name from the [name,price] array.
 		end
 
-		def demos_fulfilled
-			@demos.each do |demo|
-				return false unless demo.required_instruments.empty?
-			end
-			return true
+		def log_data
+			Log.new @instruments, @demos, @matches
 		end
 
 		def print_solution 
-					puts "Solution: "
-			@demos.each do |demo|
-					puts "    #{demo.name}:"
-				demo.instruments.each do |instrument|
-					puts "        #{instrument.person.name}'s #{instrument},"
+			if @demos.empty?
+							puts "\n(Solution botched)."
+			else
+							puts "\nSolution: "
+				@demos.each do |demo|
+					if demo.fulfilled?
+							puts "    #{demo.name} meets during #{demo.availability} with:"
+						demo.instruments.each do |instrument|
+							puts "        #{instrument.person.name}'s #{instrument}"
+						end
+					end
 				end
 			end
+		end
+
+		def save_solution
+			@solutions.push log_data
 		end
 
 		def remove_impossible_demos
 			to_remove = []
 			@demos.each do |demo|
 				demo.required_instruments.each do |required_instr|
-					instrument_availability = AvailableTime.new
+					instrument_availability = AvailableTime.new []
 					@instruments.each do |instr|
 						instrument_availability.union! (instr.availability_for demo)
 					end
 					instrument_availability.vertex! demo.availability
 					if !instrument_availability.has_contiguous? demo.duration
-						#begin testing
-						raise "This should never print. -from remove_impossible_demos" 
-						#end testing
 						to_remove.push demo 
 					end
 				end
@@ -106,36 +116,42 @@ module TW2
 
 			@instruments_of_category.each do |instrument|
 				@demos.each do |demo|
-					@matches.push Match.new instrument, demo
+					@matches.push Match.new instrument, demo if demo.requires? instrument.name
 				end
 			end
 
 			sort_matches_by_value
 
-			execute @matches.shift
+			unless @matches.empty?
+				match = @matches.shift
+				@save_timer -= 1
+				if @save_timer == 0 
+					@save_timer = SAVING_INFREQUENCY
+					@saved_data.push log_data
+				end
+				execute match
+				return true
+			else
+				return false
+			end
 		end
 
 		def find_solutions
-			save_timer = SAVING_INFREQUENCY
+			@save_timer = SAVING_INFREQUENCY
 
-			while !demos_fulfilled
-				assignment_cycle
-
-				save_timer -= 1
-				if save_timer == 0 
-					save_timer = SAVING_INFREQUENCY
-					@saved_data.push Log.new @instruments, @demos, @matches
-				end
+			while !@demos.fulfilled?
+				break if !((assignment_cycle)) # if (assignment-cycle-fails)
 			end
 
 			print_solution
+			save_solution
 
 			recover_log
 		end
 
 		def recover_log
-			if !((log = @saved_data[0]))
-				puts "I have found all matches."
+			if !((log = @saved_data.pop))
+				puts "\nI have found all matches.\n"
 			else
 				@instruments, @demos, next_match = log.recover
 				if (@instruments && @demos && next_match) #prune for efficiency here.
@@ -151,12 +167,39 @@ module TW2
 		public 
 
 		def calculate 
-			assignment_cycle 
-			if !@saved_data.empty?# to remove
-				raise " ! error: saved_data is not empty after the first assignment_cycle."
-			end
-			@saved_data[0] = Log.new @instruments, demos, matches
+			puts "I have begun assignment..."
+			remove_impossible_demos
+			@saved_data[0] = Log.new @instruments, @demos, @matches
 			find_solutions 
+
+			solution_scores = Hash.new
+			@solutions.each do |log|
+				instruments, demos = log.recover
+				#raise " ! error: a match exists in a supposedly complete solution." if match
+				solution_scores[[instruments, demos]] = solution_score instruments, demos
+			end
+
+			solution_scores = solution_scores.sort { |a,b| -(a[1] <=> b[1]) }
+
+			a_solution, top_score = solution_scores.shift
+			top_solutions = []
+			top_solutions.push a_solution
+			loop do
+				a_solution, score = solution_scores.shift
+				if score != top_score
+					break
+				else
+					top_solutions.push a_solution
+				end
+			end
+
+			puts
+			puts "Best solution(s):"
+			puts "================="
+			top_solutions.each do |solution|
+				@instruments, @demos = solution
+				print_solution
+			end
 		end
 	end
 end

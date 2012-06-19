@@ -8,6 +8,10 @@ module TW2
 			@availability = Hash.new 
 		end
 
+		def to_s
+			"<#{person.name}'s #{@name}>"
+		end
+
 		# def deep_clone
 		# 	i = Instrument.new @name, @person.deep_clone
 		# 	@availability.each_key do |demo|
@@ -21,13 +25,11 @@ module TW2
 				return a
 			end
 
-			p @person.schedule
-			p demo.schedule
-			a = @person.schedule.vertex demo.schedule
+			a = @person.schedule.vertex demo.availability
 			if a
 				return a
 			else
-				raise " ! error: #{self} cannot find availability for #{demo}"
+				raise " ! error: #{@person.name}'s #{self.name} cannot find availability for #{demo.name}"
 			end
 		end
 
