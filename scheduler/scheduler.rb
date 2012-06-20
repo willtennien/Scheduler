@@ -53,7 +53,11 @@ module TW2
 		end
 
 		def value_of_space_with instrument, space, demo
-			return 0
+			spaces = SpaceCollection.new
+			@people.each do |person|
+				spaces.concat person.spaces
+			end
+			return (Match.new space, demo).value_with spaces, @demos, D, S, C, A
 		end
 
 		def priciest_instrument #returns a name
@@ -173,7 +177,7 @@ module TW2
 					end
 				end
 				space_matches.sort! { |a,b| -((value_of_space_with a[0], a[1], a[2]) <=> (value_of_space_with b[0], b[1], b[2])) }
-				space_matches.shuffle!
+				#space_matches.shuffle!
 				while !space_matches.empty?
 					instrument, space, demo = space_matches[0]
 					assign instrument, demo
