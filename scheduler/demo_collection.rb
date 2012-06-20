@@ -8,6 +8,14 @@ module TW2
 			return sum
 		end
 
+		def demand_space space_quality
+			sum = 0
+			each do |demo|
+				sum += 1 if space_quality >= demo.required_space
+			end
+			return sum
+		end
+
 		# def demanding_rank n
 		# 	begin 
 		# 		sort!

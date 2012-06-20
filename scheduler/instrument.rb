@@ -1,30 +1,43 @@
 module TW2
 	class Instrument
-		attr_reader :name, :person
+		attr_reader :name
 
-		def initialize name, person
-			@person = person
+		def initialize name
 			@name = name
+			@person = nil
 			@availability = Hash.new 
 		end
 
 		def to_s
-			"<#{person.name}'s #{@name}>"
+			if @person
+				"<#{@person.name}'s #{@name}>"
+			else
+				"<unowned #{@name}>"
+			end
 		end
 
-		# def deep_clone
-		# 	i = Instrument.new @name, @person.deep_clone
-		# 	@availability.each_key do |demo|
-		# 		i.availability_for demo #just calculuate it.
-		# 	end
-		# 	return i
-		# end
+		def person
+			if @person 
+				return @person
+			else
+				raise " ! error: #{self} does not yet have a person."
+			end
+		end
+
+		def person=(p)
+			if @person
+				raise " ! error: I tried to change #{self}'s person to #{p}."
+			else
+				@person = p
+			end
+		end
 
 		def availability_for demo
 			if ((a = @availability[demo]))
 				return a
 			end
 
+			raise " ! error: #{self} does not yet have a person." unless person #remove later
 			a = @person.schedule.vertex demo.availability
 			if a
 				return a
@@ -32,6 +45,5 @@ module TW2
 				raise " ! error: #{@person.name}'s #{self.name} cannot find availability for #{demo.name}"
 			end
 		end
-
 	end
 end

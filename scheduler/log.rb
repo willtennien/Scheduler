@@ -2,10 +2,6 @@ module TW2
 	class Log
 		attr_accessor :instruments, :demos, :identifier
 
-		# def initialize
-		# 	@instruments = "" #remember that "instruments" is a string!
-		# 	@demos = "" #remember that "demos" is a string!
-		# end
 		@@id_counter = 1
 		def initialize instruments, demos, matches, *others
 			@instruments = Marshal.dump instruments
