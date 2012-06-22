@@ -6,7 +6,7 @@ module TW2
 	require_relative 'demo'
 	require_relative 'demo_collection'
 	require_relative 'match'
-	require_relative 'log'
+	require_relative 'solutionState'
 
 	class Scheduler
 		attr_reader :instruments, :demos
@@ -66,7 +66,7 @@ module TW2
 		end
 
 		def log_data
-			Log.new @instruments, @spaces, @demos, @matches
+			SolutionState.new @instruments, @spaces, @demos, @matches
 		end
 
 		def print_solution 
@@ -182,10 +182,10 @@ module TW2
 		end
 
 		def recover_log
-			if !((log = @saved_data.pop))
+			if !((solutionState = @saved_data.pop))
 				puts "\nI have found all matches.\n"
 			else
-				@instruments, @demos, next_match = log.recover
+				@instruments, @demos, next_match = solutionState.recover
 				if (@instruments && @demos && next_match) #prune for efficiency here.
 					execute next_match
 					find_solutions
@@ -201,12 +201,12 @@ module TW2
 		def calculate 
 			puts "I have begun assignment..."
 			remove_impossible_demos
-			@saved_data[0] = Log.new @instruments, @demos, @matches
+			@saved_data[0] = SolutionState.new @instruments, @demos, @matches
 			find_solutions 
 
 			solution_scores = Hash.new
-			@solutions.each do |log|
-				instruments, demos = log.recover
+			@solutions.each do |solutionState|
+				instruments, demos = solutionState.recover
 				#raise " ! error: a match exists in a supposedly complete solution." if match
 				solution_scores[[instruments, demos]] = solution_score instruments, demos
 			end

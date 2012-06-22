@@ -18,7 +18,7 @@ module TW2
 	require_relative 'demo'
 	require_relative 'demo_collection'
 	require_relative 'match'
-	require_relative 'log'
+	require_relative 'solution_state'
 
 	class Scheduler
 		attr_reader :instruments, :demos
@@ -70,8 +70,8 @@ module TW2
 			return (types.sort {|a,b| -(a[1]<=>b[1]) }).first.first #the second ".first" extractes the instrument name from the [name,price] array.
 		end
 
-		def log_data
-			Log.new @instruments, @demos, @matches
+		def current_state
+			SolutionState.new @instruments, @demos, @matches
 		end
 
 		def print_solution 
@@ -94,7 +94,7 @@ module TW2
 		end
 
 		def save_solution
-			@solutions.push log_data
+			@solutions.push current_state
 		end
 
 		def remove_impossible_demos
@@ -144,7 +144,7 @@ module TW2
 			remove_impossible_demos
 			assign_partnered_spaces
 			disguise_spaces
-			@saved_data[0] = Log.new @instruments, @demos, @matches
+			@saved_data[0] = SolutionState.new @instruments, @demos, @matches
 		end
 
 		def assign_partnered_spaces
@@ -234,7 +234,7 @@ module TW2
 				@save_timer -= 1
 				if @save_timer == 0 
 					@save_timer = SAVING_INFREQUENCY
-					@saved_data.push log_data
+					@saved_data.push current_state
 				end
 				execute match
 				return true
@@ -253,20 +253,20 @@ module TW2
 			print_solution
 			save_solution
 
-			recover_log
+			recover_state
 		end
 
-		def recover_log
-			if !((log = @saved_data.pop))
+		def recover_state
+			if !((solutionState = @saved_data.pop))
 				puts "\nI have found all matches.\n"
 			else
-				@instruments, @demos, next_match = log.recover
+				@instruments, @demos, next_match = solutionState.recover
 				if (@instruments && @demos && next_match) #prune for efficiency here.
 					execute next_match
 					find_solutions
 				else 
 					@saved_data.pop
-					recover_log
+					recover_state
 				end
 			end
 		end
@@ -275,8 +275,8 @@ module TW2
 
 		def print_best_solutions
 			solution_scores = Hash.new
-			@solutions.each do |log|
-				instruments, demos = log.recover
+			@solutions.each do |solutionState|
+				instruments, demos = solutionState.recover
 				solution_scores[[instruments, demos]] = solution_score instruments, demos
 			end
 
