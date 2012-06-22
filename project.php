@@ -78,7 +78,7 @@
 
 
     <h3>Recording Environment:</h3>
-    <select name="recording_environment">
+    <select name="recording_environment" size="4">
       <option>Totally soundproof</option>
       <option>Silence!!!</option>
       <option>I don't want to hear people talking on my recordings</option>
