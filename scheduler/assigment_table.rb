@@ -9,6 +9,12 @@ module TW2
 			end
 		end
 
+		describe "initialize" do
+
+			it "does something"
+
+		end
+
 		# def deep_clone
 		# 	begin
 		# 		return AssignmentTable.new({}.replace @instruments)
@@ -25,6 +31,10 @@ module TW2
 				end
 			end
 			return d
+		end
+
+		describe "#supply" do
+			it "does something. look out for divide-by-0!"
 		end
 
 		def demand_order
