@@ -1,5 +1,0 @@
-Scheduler
-
-GUI
-
-Rails/backend

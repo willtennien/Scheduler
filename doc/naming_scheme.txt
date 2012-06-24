@@ -1,0 +1,6 @@
+In the rails application:		In the algorithm:
+=========================		=================
+User                            =       Person
+Instrument 			= 	Instrument
+Space 				= 	Space
+Project				= 	Project
