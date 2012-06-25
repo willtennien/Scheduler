@@ -1,0 +1,21 @@
+<h1>Listing project_solutions</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @project_solutions.each do |project_solution| %>
+  <tr>
+    <td><%= link_to 'Show', project_solution %></td>
+    <td><%= link_to 'Edit', edit_project_solution_path(project_solution) %></td>
+    <td><%= link_to 'Destroy', project_solution, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project solution', new_project_solution_path %>

@@ -1,0 +1,17 @@
+<%= form_for(@instrument_name) do |f| %>
+  <% if @instrument_name.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@instrument_name.errors.count, "error") %> prohibited this instrument_name from being saved:</h2>
+
+      <ul>
+      <% @instrument_name.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
