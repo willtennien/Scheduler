@@ -1,0 +1,17 @@
+<%= form_for(@soundproofness) do |f| %>
+  <% if @soundproofness.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@soundproofness.errors.count, "error") %> prohibited this soundproofness from being saved:</h2>
+
+      <ul>
+      <% @soundproofness.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

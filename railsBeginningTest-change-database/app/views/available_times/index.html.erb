@@ -1,0 +1,21 @@
+<h1>Listing available_times</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @available_times.each do |available_time| %>
+  <tr>
+    <td><%= link_to 'Show', available_time %></td>
+    <td><%= link_to 'Edit', edit_available_time_path(available_time) %></td>
+    <td><%= link_to 'Destroy', available_time, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Available time', new_available_time_path %>

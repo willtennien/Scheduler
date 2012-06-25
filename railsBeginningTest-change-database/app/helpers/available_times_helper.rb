@@ -1,0 +1,2 @@
+module AvailableTimesHelper
+end

@@ -1,0 +1,21 @@
+<h1>Listing instrument_names</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @instrument_names.each do |instrument_name| %>
+  <tr>
+    <td><%= link_to 'Show', instrument_name %></td>
+    <td><%= link_to 'Edit', edit_instrument_name_path(instrument_name) %></td>
+    <td><%= link_to 'Destroy', instrument_name, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Instrument name', new_instrument_name_path %>

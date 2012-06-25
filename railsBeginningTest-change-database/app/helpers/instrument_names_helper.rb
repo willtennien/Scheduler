@@ -1,0 +1,2 @@
+module InstrumentNamesHelper
+end

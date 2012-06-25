@@ -1,0 +1,21 @@
+<h1>Listing project_requirements</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @project_requirements.each do |project_requirement| %>
+  <tr>
+    <td><%= link_to 'Show', project_requirement %></td>
+    <td><%= link_to 'Edit', edit_project_requirement_path(project_requirement) %></td>
+    <td><%= link_to 'Destroy', project_requirement, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Project requirement', new_project_requirement_path %>
