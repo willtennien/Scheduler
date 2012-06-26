@@ -5,3 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+a1 = AvailableTime.new
+a1.value = [[1,2]]
+
+p1 = ProjectRequirement.new
+p1.name = "projectOne"
+p1.duration = 1
+p1.schedule = a1
+p1.required_instruments = #...
+p1.required_spaces = #...

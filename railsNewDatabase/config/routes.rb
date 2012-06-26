@@ -1,5 +1,8 @@
 RailsNewDatabase::Application.routes.draw do
 
+  match 'schedulers/load' => 'Schedulers#load'
+  match 'schedulers/run' => 'Schedulers#run'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
