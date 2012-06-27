@@ -6,12 +6,22 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-a1 = AvailableTime.new
-a1.value = [[1,2]]
+u1 = User.new(username: "user1",
+			  password: "secret")
 
-p1 = ProjectRequirement.new
-p1.name = "projectOne"
-p1.duration = 1
-p1.schedule = a1
-p1.required_instruments = #...
-p1.required_spaces = #...
+a1 = AvailableTime.new(value: [[1,2]],
+					   user: u1)
+
+i1 = Instrument.new(instrument_name: InstrumentName.new(value: "guitar"),
+					user: u1)
+
+sp1 = Space.new(soundproofness: Soundproofness.new(name: "quiet").id)
+
+
+p1 = ProjectRequirement.new(name: "projectOne",
+							description: "This is a description.",
+							duration: 1,
+							soundproofness: Soundproofness.new(name: "quiet"),
+							user: u1)
+
+p1.instrument_requirements.push InstrumentRequirement.new(instrument_name: InstrumentName.new(value: 'guitar'))

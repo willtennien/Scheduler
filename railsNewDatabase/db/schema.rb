@@ -41,6 +41,9 @@ ActiveRecord::Schema.define(:version => 20120626153438) do
   end
 
   create_table "project_requirements", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.integer  "duration"
     t.integer  "project_solution_id"
     t.integer  "soundproofness_id"
     t.integer  "user_id"

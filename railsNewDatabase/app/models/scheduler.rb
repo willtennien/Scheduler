@@ -1,7 +1,7 @@
 require_relative '../../scheduler/scheduler'
 
 class Scheduler < ActiveRecord::Base
-	attr_accessor :a
+	attr_accessible :id, :name
 
 	def load
 		people = []

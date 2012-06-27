@@ -1,5 +1,5 @@
 class ProjectSolution < ActiveRecord::Base
-  # attr_accessible :title, :body
+  attr_accessible :id, :project_requirement, :available_time, :instruments, :user, :space
   has_one :project_requirement
   has_one :available_time
   has_many :instruments

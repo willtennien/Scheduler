@@ -1,10 +1,9 @@
 class AvailableTime < ActiveRecord::Base
 	has_one :user 
-	has_one :project_requirement
+	has_one :project_requirement, through: :user
 	has_one :project_solution
 
-	before_filter {|a| raise " ! error: #{self} has no value." unless a.value}
-
+	attr_accessible :value, :user, :project_requirement, :project_solution
 	attr_accessor :value
 
 	def to_s

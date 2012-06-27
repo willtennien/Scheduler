@@ -1,5 +1,5 @@
 class Soundproofness < ActiveRecord::Base
-  attr_accessible :name, #:spaces, :project_requirements
+  attr_accessible :id, :name, :spaces, :project_requirements
   has_many :spaces
   has_many :project_requirements
 
