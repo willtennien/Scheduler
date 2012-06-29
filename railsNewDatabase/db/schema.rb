@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(:version => 20120626153438) do
 
   create_table "available_times", :force => true do |t|
     t.integer  "user_id"
+    t.string   "value_str"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

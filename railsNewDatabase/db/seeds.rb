@@ -6,22 +6,24 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-u1 = User.new(username: "user1",
-			  password: "secret")
+u1 = User.create(username: "user1",
+			password: "secret")
 
-a1 = AvailableTime.new(value: [[1,2]],
-					   user: u1)
+a1 = AvailableTime.create(user_id: u1.id)
+a1.value = [[1,2]]
+a1.save
 
-i1 = Instrument.new(instrument_name: InstrumentName.new(value: "guitar"),
-					user: u1)
+i1 = Instrument.create(instrument_name: InstrumentName.create(value: "guitar"),
+					   user_id: u1.id)
 
-sp1 = Space.new(soundproofness: Soundproofness.new(name: "quiet").id)
+sp1 = Space.create(soundproofness: Soundproofness.create(name: "quiet"),
+				   user_id: u1.id)
 
 
-p1 = ProjectRequirement.new(name: "projectOne",
-							description: "This is a description.",
-							duration: 1,
-							soundproofness: Soundproofness.new(name: "quiet"),
-							user: u1)
+p1 = ProjectRequirement.create(name: "projectOne",
+							   description: "This is a description.",
+							   duration: 1,
+							   soundproofness: Soundproofness.create(name: "quiet"),
+							   user_id: u1.id)
 
-p1.instrument_requirements.push InstrumentRequirement.new(instrument_name: InstrumentName.new(value: 'guitar'))
+p1.instrument_requirements.push InstrumentRequirement.create(instrument_name: InstrumentName.create(value: 'guitar'))

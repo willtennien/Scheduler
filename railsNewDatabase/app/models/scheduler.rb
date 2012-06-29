@@ -15,7 +15,7 @@ class Scheduler < ActiveRecord::Base
 				spaces.push (TW2::Space.new sp.soundproofness.to_i) if sp.user == user
 			end
 
-			p = TW2::Person.new user.username, TW2::AvailableTime.new(user.availability.value)
+			p = TW2::Person.new user.username, TW2::AvailableTime.new(user.available_time.value)
 			p.instruments.concat instruments
 			p.spaces.concat spaces
 			people.push p
@@ -23,18 +23,18 @@ class Scheduler < ActiveRecord::Base
 
 		demos = []
 		ProjectRequirement.all.each do |req|
-			time = TW2::AvailableTime.new req.user.availability.value
+			time = TW2::AvailableTime.new req.user.available_time.value
 
 			instruments = []
-			req.instruments.each do |instr_name|
-				instruments.push(TW2::Instrument.new instr_name.value)
+			req.instrument_requirements.each do |instr_req|
+				instruments.push instr_req.instrument_name.value
 			end
 
 			demos.push TW2::Demo.new(name: req.name,
 									 duration: req.duration,
 									 schedule: time,
 								 	 required_instruments: instruments,
-									 required_space: req.space)
+									 required_space: req.soundproofness.to_i)
 		end
 
 		@s = TW2::Scheduler.new people, demos

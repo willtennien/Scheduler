@@ -3,12 +3,23 @@ class AvailableTime < ActiveRecord::Base
 	has_one :project_requirement, through: :user
 	has_one :project_solution
 
-	attr_accessible :value, :user, :project_requirement, :project_solution
-	attr_accessor :value
+	attr_accessible :user, :user_id, :project_requirement, :project_solution
+	attr_protected :value_str
+
+	def value
+		raise " ! error: A rails AvailableTime has no self.value_str." unless self.value_str
+		@value ||= Marshal.load self.value_str
+		return @value
+	end
+
+	def value=(v)
+		self.value_str = Marshal.dump v
+		save
+	end
 
 	def to_s
 		result = "<AvailableTime: "
-		@value.each do |start,finish|
+		self.value.each do |start,finish|
 			result << "#{start}-#{finish}, "
 		end
 		result = result[0..-3] + ">"
@@ -16,14 +27,14 @@ class AvailableTime < ActiveRecord::Base
 
 	def magnitude
 		sum = 0
-		@value.each do |start,finish|
+		self.value.each do |start,finish|
 			sum += finish - start
 		end
 		return sum
 	end
 
 	def has_contiguous? time
-		@value.each do |a|
+		self.value.each do |a|
 			if (a.last - a.first) >= time
 				return true
 			end
@@ -48,7 +59,7 @@ class AvailableTime < ActiveRecord::Base
 	end
 
 	def vertex! other
-		@value = (self.vertex other).value
+		self.value = (self.vertex other).value
 	end
 
 	def vertex other
@@ -84,7 +95,7 @@ class AvailableTime < ActiveRecord::Base
 	end
 
 	def union! other
-		@value = (self.union other).value
+		self.value = (self.union other).value
 	end
 
 	def union other

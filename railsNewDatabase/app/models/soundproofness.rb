@@ -5,6 +5,8 @@ class Soundproofness < ActiveRecord::Base
 
   ORDERED = ["loud","eh","quiet"]
 
+  validates :name, inclusion: ORDERED
+
   def to_i
   	if ((i = ORDERED.index(self.name)))
   		return i
