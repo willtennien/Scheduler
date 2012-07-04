@@ -1,7 +1,7 @@
 var counter = 1;
 
 function theSelectorElement(n) { return [ '      <a href="">x</a>', // this one'll definitely be an icon
-'      <select name="instruments' + n + '" onchange="instrument_selection_made();">',
+'      <select name="instrument_names[][name]" onchange="instrument_selection_made();">',
 '        <option selected>Pick instrument</option>',
 '      <option>Strings (5 available)</option>',
 '      <option>- - Violin (4 available)</option>',
@@ -16,13 +16,13 @@ function theSelectorElement(n) { return [ '      <a href="">x</a>', // this one'
 '      <option>Bass (5 available)</option>',
 '      </select>', //(How talented do they have to be?)',
 '      Min: ',
-'      <select name="numOfInstrumentsMin">',
+'      <select name="instrument_names[][min]">',
 '        <option selected>1</option>',
 '        <option>2</option>',
 '        <option>3</option>',
 '      </select>',
 '      Max: ',
-'      <select name="numOfInstrumentsMax">',
+'      <select name="instrument_names[][max]">',
 '        <option>same</option>', 
 '        <option>2</option>',
 '        <option>3</option>',
