@@ -5,7 +5,7 @@ RailsNewDatabase::Application.routes.draw do
   match 'schedulers/run' => 'Schedulers#run'
   #end testing
 
-  #match '/' => 'Home#show'
+  match '/' => 'Sessions#new'
   resources :users
   resources :sessions
   resources :project_requirements

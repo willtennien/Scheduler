@@ -3,7 +3,7 @@ class Soundproofness < ActiveRecord::Base
   has_many :spaces
   has_many :project_requirements
 
-  ORDERED = ["loud","eh","quiet"]
+  ORDERED = ["loud","eh","quiet","thomas"]
 
   validates :name, inclusion: ORDERED
 

@@ -33,8 +33,6 @@ class SessionsController < ApplicationController
       @username_value = nil
     end
 
-    @password_value = '******'
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @session }
@@ -55,6 +53,7 @@ class SessionsController < ApplicationController
       redirect_to new_session_url, notice: 'Incorrect username or password.'
     else
       @session = Session.new
+      @session.user_id = user.id
       session[:user_id] = user.id
 
       respond_to do |format|
@@ -89,5 +88,8 @@ class SessionsController < ApplicationController
   def destroy
     @session = Session.find(params[:id])
     @session.destroy
+    session[:user_id] = nil
+
+    redirect_to new_session_path
   end
 end

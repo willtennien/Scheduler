@@ -10,9 +10,9 @@
 <body>
 <header>
 	This is the header
-	<%= link_to "Projects", project_requirements_path %>
 	<% if ((uid = session[:user_id])) %>
-		<%= User.find(uid).name %><%= link_to "Logout", Session.find_by_user_id(session[:user_id]), method: :destroy %>
+		<%= link_to "Projects", project_requirements_path %>
+		<%= User.find(uid).name %><%= button_to "Logout", Session.find_by_user_id(session[:user_id]), method: :delete %>
 	<% else %>
 		<%= link_to "Login", new_session_path %>
 	<% end %>

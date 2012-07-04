@@ -2,6 +2,7 @@
 class ProjectRequirementsController < ApplicationController
   # GET /project_requirements
   # GET /project_requirements.json
+
   def index
     @project_requirements = ProjectRequirement.where(user_id: session[:user_id])
 
@@ -26,9 +27,8 @@ class ProjectRequirementsController < ApplicationController
   # GET /project_requirements/new.json
   def new
     @project_requirement = ProjectRequirement.new
-
-    @possible_durations = [{text: "1 hour", value: 1}].concat (2..8).to_a.map! {|h| {text: "#{h} hours", value: h} }
-
+    prepare_form
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @project_requirement }
@@ -38,6 +38,7 @@ class ProjectRequirementsController < ApplicationController
   # GET /project_requirements/1/edit
   def edit
     @project_requirement = ProjectRequirement.find(params[:id])
+    prepare_form
   end
 
   # POST /project_requirements
@@ -48,6 +49,9 @@ class ProjectRequirementsController < ApplicationController
         params[:project_requirement][:soundproofness] = Soundproofness.new(name: s)
         @project_requirement = ProjectRequirement.new(params[:project_requirement])
         @project_requirement.user_id = session[:user_id]
+        # params[:instrument_names].each do |instr_name|
+        #   InstrumentRequirement.create instrument_name: InstrumentName.new(instr_name), project_requirement: @project_requirement
+        # end
     else
       check_authentication "Please login to create a new project."
     end
@@ -89,5 +93,10 @@ class ProjectRequirementsController < ApplicationController
       format.html { redirect_to project_requirements_url }
       format.json { head :no_content }
     end
+  end
+
+  private 
+  def prepare_form
+    @possible_durations = [{text: "1 hour", value: 1}].concat (2..8).to_a.map! {|h| {text: "#{h} hours", value: h} }
   end
 end
