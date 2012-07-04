@@ -3,7 +3,7 @@ class Soundproofness < ActiveRecord::Base
   has_many :spaces
   has_many :project_requirements
 
-  ORDERED = ["loud","eh","quiet","thomas"]
+  ORDERED = ["loud","eh","quiet"]
 
   validates :name, inclusion: ORDERED
 
@@ -22,6 +22,14 @@ class Soundproofness < ActiveRecord::Base
   class << self
     def is? string
       return ORDERED.include? string
+    end
+
+    def highest
+      return ORDERED[-1]
+    end
+
+    def lowest
+      return ORDERED[0]
     end
   end
 end
