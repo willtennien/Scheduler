@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>MergeTest3</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
@@ -7,8 +8,19 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<header>
+	This is the header
+	<%= link_to "Projects", project_requirements_path %>
+	<% if ((uid = session[:user_id])) %>
+		<%= User.find(uid).name %><%= link_to "Logout", Session.find_by_user_id(session[:user_id]), method: :destroy %>
+	<% else %>
+		<%= link_to "Login", new_session_path %>
+	<% end %>
+</header>
 
+<div id="main" >
 <%= yield %>
 
+</div>
 </body>
 </html>

@@ -18,4 +18,10 @@ class Soundproofness < ActiveRecord::Base
   def to_s
     return name
   end
+
+  class << self
+    def is? string
+      return ORDERED.include? string
+    end
+  end
 end

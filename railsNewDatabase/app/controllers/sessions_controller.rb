@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
     if ((u = session[:attempted_username]))
       @username_value = u
     else
-      @username_value = 'username'
+      @username_value = nil
     end
 
     @password_value = '******'
@@ -89,10 +89,5 @@ class SessionsController < ApplicationController
   def destroy
     @session = Session.find(params[:id])
     @session.destroy
-
-    respond_to do |format|
-      format.html { redirect_to sessions_url }
-      format.json { head :no_content }
-    end
   end
 end

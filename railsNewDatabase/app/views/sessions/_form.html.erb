@@ -13,8 +13,8 @@
 <form name="loginForm" method="post" action="<%= sessions_path %>">
   <div class="actions">
     <form action="sessions/create" >
-      <input type="text" name="username" value="<%= @username_value %>" />
-      <input type="text" name="password" />
+      <input type="text" name="username" <% if @username_value %> value="<%= @username_value %>" <% end %> />
+      <input type="password" name="password" />
       <input type="submit" />
     </form>
   </div>

@@ -8,6 +8,7 @@ RailsNewDatabase::Application.routes.draw do
   #match '/' => 'Home#show'
   resources :users
   resources :sessions
+  resources :project_requirements
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

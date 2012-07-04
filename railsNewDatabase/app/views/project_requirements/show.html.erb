@@ -1,5 +1,16 @@
 <p id="notice"><%= notice %></p>
 
+<h1><%= @project_requirement.name %></h1>
+<p><%= @project_requirement.description %></p>
+<p>Requires soundlevel to be "<%= @project_requirement.soundproofness %>."</p>
+<h4>Required Instruments:</h4>
+<%= "(none)" if @project_requirement.instrument_requirements.empty? %>
+<ul>
+	<% @project_requirement.instrument_requirements.each do |req| %>
+	<li><%= req.instrument_name.value %></li>
+	<% end %>
+</ul>
+
 
 <%= link_to 'Edit', edit_project_requirement_path(@project_requirement) %> |
 <%= link_to 'Back', project_requirements_path %>

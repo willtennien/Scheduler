@@ -11,7 +11,47 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <h3>Name</h3>
+  <%= f.text_field :name %>
+
+  <h3>Description</h3>
+  <%= f.text_area :description, size: "50x7" %>
+
+  <div id="someIsh">
+    <h3>What instruments do you want on your demo?</h3>
   </div>
+
+  <script type="text/javascript">instrument_selection_made();</script>
+
+  <br /><br />
+
+  <h3>Recording Environment:</h3>
+  <select name="project_requirement[soundproofness]" size="4">
+    <% Soundproofness::ORDERED.each do |s| %>
+    <option><%= s %></option>
+    <% end %>
+  </select>
+
+  <br /><br />
+
+  <h3>How long will it take?</h3>
+  From start to finish! Be realistic. If you say 3 hours, people might have to leave right at the end of 3 hours.<br />
+  <!-- <?php // (This'll be better as a slider - look into jquery ones)<br /> ?> -->
+  <% @possible_durations.each do |duration| %>
+    <input type="radio" name="project_requirement[duration]" value="<%= duration[:value] %>" ><label><%= duration[:text] %></label><br />
+  <% end %>
+
+<!--   <select>
+    <option>1 hour</option>
+    <option>2 hours</option>
+    <option>3 hours</option>
+    <option selected>4 hours</option>
+    <option>5 hours</option>
+    <option>6 hours</option>
+    <option>7 hours</option>
+    <option>8 hours</option>
+    <option>more</option>
+  </select> -->
+
+  <input type="submit" value="Create project"> Please remember that creating a project does not gurantee its requirements will be fulfilled. We will try out best.
 <% end %>

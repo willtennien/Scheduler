@@ -3,7 +3,7 @@ class ProjectRequirementsController < ApplicationController
   # GET /project_requirements
   # GET /project_requirements.json
   def index
-    @project_requirements = ProjectRequirement.all
+    @project_requirements = ProjectRequirement.where(user_id: session[:user_id])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,6 +27,8 @@ class ProjectRequirementsController < ApplicationController
   def new
     @project_requirement = ProjectRequirement.new
 
+    @possible_durations = [{text: "1 hour", value: 1}].concat (2..8).to_a.map! {|h| {text: "#{h} hours", value: h} }
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @project_requirement }
@@ -41,7 +43,14 @@ class ProjectRequirementsController < ApplicationController
   # POST /project_requirements
   # POST /project_requirements.json
   def create
-    @project_requirement = ProjectRequirement.new(params[:project_requirement])
+    if session[:user_id]
+        s = params[:project_requirement][:soundproofness]
+        params[:project_requirement][:soundproofness] = Soundproofness.new(name: s)
+        @project_requirement = ProjectRequirement.new(params[:project_requirement])
+        @project_requirement.user_id = session[:user_id]
+    else
+      check_authentication "Please login to create a new project."
+    end
 
     respond_to do |format|
       if @project_requirement.save

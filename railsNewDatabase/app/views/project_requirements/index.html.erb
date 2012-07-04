@@ -1,4 +1,4 @@
-<h1>Listing project_requirements</h1>
+<h1>My Projects</h1>
 
 <table>
   <tr>
@@ -9,13 +9,15 @@
 
 <% @project_requirements.each do |project_requirement| %>
   <tr>
+    <td><%= project_requirement.name %></td>
+    <td><%= truncate(project_requirement.description, length: 30) %></td>
     <td><%= link_to 'Show', project_requirement %></td>
     <td><%= link_to 'Edit', edit_project_requirement_path(project_requirement) %></td>
-    <td><%= link_to 'Destroy', project_requirement, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to 'Destroy', project_requirement, confirm: "Are you sure you want to delete #{project_requirement.name}? This action cannot be undone.", method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Project requirement', new_project_requirement_path %>
+<%= link_to 'Create a Project', new_project_requirement_path %>
