@@ -27,6 +27,14 @@ class SessionsController < ApplicationController
   def new
     @session = Session.new
 
+    if ((u = session[:attempted_username]))
+      @username_value = u
+    else
+      @username_value = 'username'
+    end
+
+    @password_value = '******'
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @session }
@@ -41,15 +49,17 @@ class SessionsController < ApplicationController
   # POST /sessions
   # POST /sessions.json
   def create
-    if params[:password] != "secret"
-      redirect_to new_session_url, notice: "Incorrect username or password."
+    user = User.find_by_username(params[:username])
+    unless user && user.authenticate(params[:password])
+      session[:attempted_username] = params[:username]
+      redirect_to new_session_url, notice: 'Incorrect username or password.'
     else
       @session = Session.new
+      session[:user_id] = user.id
 
       respond_to do |format|
         if @session.save
-          format.html { redirect_to @session, notice: 'Session was successfully created.' }
-          format.json { render json: @session, status: :created, location: @session }
+          format.html { redirect_to user, notice: 'Welcome back!' }
         else
           format.html { render action: "new" }
           format.json { render json: @session.errors, status: :unprocessable_entity }

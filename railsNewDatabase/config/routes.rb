@@ -1,8 +1,14 @@
 RailsNewDatabase::Application.routes.draw do
 
+  #begin testing
   match 'schedulers/load' => 'Schedulers#load'
   match 'schedulers/run' => 'Schedulers#run'
+  #end testing
 
+  #match '/' => 'Home#show'
+  resources :users
+  resources :sessions
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

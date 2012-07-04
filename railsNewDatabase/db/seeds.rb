@@ -7,7 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 u1 = User.create(username: "user1",
-			password: "secret")
+				password: "secret",
+				name: "bob",
+				email: "bob@genericnames.com")
 
 a1 = AvailableTime.create(user_id: u1.id)
 a1.value = [[1,2]]

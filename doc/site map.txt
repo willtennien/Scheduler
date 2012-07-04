@@ -1,0 +1,32 @@
+When a user is logged in, the header will display:
+	profile
+	assignments
+	projects
+	create project
+	support
+
+Main page/login
+	name of site
+	login
+	create account
+	success stories (optional)
+
+Profile	(User#edit)
+	"Real" name (optional)
+	short bio (optional)
+	username/email
+	change password
+	add/maintain instruments
+	add spaces
+	declare schedule
+
+Create Project (ProjectRequirement#new)
+	title
+	description
+	duration
+	required instruments
+	required space level
+	optional "requirements" (optional)
+
+Assignment (ProjectSolution#show)
+	--fill in here

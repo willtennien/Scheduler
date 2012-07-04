@@ -90,6 +90,9 @@ ActiveRecord::Schema.define(:version => 20120626153438) do
     t.integer  "available_time_id"
     t.string   "username"
     t.string   "password"
+    t.string   "password_digest"
+    t.string   "name"
+    t.string   "email"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
   end
