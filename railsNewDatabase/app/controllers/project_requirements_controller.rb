@@ -53,9 +53,16 @@ class ProjectRequirementsController < ApplicationController
         end
         @project_requirement = ProjectRequirement.new(params[:project_requirement])
         @project_requirement.user_id = session[:user_id]
-        # params[:instrument_names].each do |instr_name|
-        #   InstrumentRequirement.create instrument_name: InstrumentName.new(instr_name), project_requirement: @project_requirement
-        # end
+
+        print 'PARAMETERS'; p params[:instrument_names]
+        #params[:instrument_names] ex/ {name: "guitar", min:1, max: 100}
+        params[:instrument_names].each do |instr|
+          if InstrumentName.is? instr[:name]
+            instr[:min].times do
+              InstrumentRequirement.create instrument_name: InstrumentName.new(instr[:name]), project_requirement: @project_requirement
+            end
+          end
+        end
     else
       check_authentication "Please login to create a new project."
     end
