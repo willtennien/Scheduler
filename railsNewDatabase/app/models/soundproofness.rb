@@ -19,17 +19,21 @@ class Soundproofness < ActiveRecord::Base
     return name
   end
 
-  class << self
-    def is? string
-      return ORDERED.include? string
-    end
+  def self.is? string
+    return ORDERED.include? string
+  end
 
-    def highest
-      return ORDERED[-1]
-    end
+  def self.highest
+    return ORDERED[-1]
+  end
 
-    def lowest
-      return ORDERED[0]
+  def self.lowest
+    return ORDERED[0]
+  end
+
+  def self.create_all
+    ORDERED.each do |name|
+      Soundproofness.create(name: name)
     end
   end
 end
