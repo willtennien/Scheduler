@@ -37,9 +37,11 @@
   <h3>How long will it take?</h3>
   From start to finish! Be realistic. If you say 3 hours, people might have to leave right at the end of 3 hours.<br />
   <!-- <?php // (This'll be better as a slider - look into jquery ones)<br /> ?> -->
+  <input type="select" name="project_requirement[duration]" size="<%= @possible_durations.size %>">
   <% @possible_durations.each do |duration| %>
-    <input type="radio" name="project_requirement[duration]" value="<%= duration[:value] %>" ><label><%= duration[:text] %></label><br />
+    <option value="<%= duration[:value] %>" ><%= duration[:text] %></option>
   <% end %>
+  </input>
 
 <!--   <select>
     <option>1 hour</option>
