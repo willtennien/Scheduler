@@ -28,7 +28,7 @@ class ProjectRequirementsController < ApplicationController
   def new
     @project_requirement = ProjectRequirement.new
     prepare_form
-    
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @project_requirement }
@@ -46,7 +46,11 @@ class ProjectRequirementsController < ApplicationController
   def create
     if session[:user_id]
         s = params[:project_requirement][:soundproofness]
-        params[:project_requirement][:soundproofness] = Soundproofness.new(name: s)
+        if s
+          params[:project_requirement][:soundproofness] = Soundproofness.new(name: s)
+        else
+          params[:project_requirement][:soundproofness] = Soundproofness.new(name: Soundproofness.lowest)
+        end
         @project_requirement = ProjectRequirement.new(params[:project_requirement])
         @project_requirement.user_id = session[:user_id]
         # params[:instrument_names].each do |instr_name|
@@ -61,6 +65,7 @@ class ProjectRequirementsController < ApplicationController
         format.html { redirect_to @project_requirement, notice: 'Project requirement was successfully created.' }
         format.json { render json: @project_requirement, status: :created, location: @project_requirement }
       else
+        prepare_form
         format.html { render action: "new" }
         format.json { render json: @project_requirement.errors, status: :unprocessable_entity }
       end
