@@ -37,11 +37,7 @@
 
   <%= select_tag("project_requirement[duration]", options_for_select(@possible_durations.map{ |a| [ a[:text], a[:value] ] }, (@project_requirement.duration || 4)), size: @possible_durations.size) %>
 
-  <select name="project_requirement[duration]" size="<%= @possible_durations.size %>">
-  <% @possible_durations.each do |duration| %>
-    <option value="<%= duration[:value] %>" <%= "selected" if duration[:value] == 4 %> ><%= duration[:text] %></option>
-  <% end %>
-  <select>
+  
   <br />
 
   <input type="submit" value="Submit"> Please remember that creating a project does not gurantee its requirements will be fulfilled. We will try out best.
