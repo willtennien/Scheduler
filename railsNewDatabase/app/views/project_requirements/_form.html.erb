@@ -27,7 +27,7 @@
 
   <h3>Recording Environment:</h3>
   <% # NOTE: the '0' in options_for_select defines its default value: %>
-  <%= select_tag(:project_requirement["soundproofness"], options_for_select(Soundproofness::ORDERED.collect{ |x| [x, x.to_i] }, Soundproofness[0]), size: Soundproofness::ORDERED.size) %>
+  <%= select_tag("project_requirement[soundproofness]", options_for_select(Soundproofness::ORDERED.collect{ |x| [x, x] }, (@project_requirement.soundproofness || Soundproofness.lowest)), size: Soundproofness::ORDERED.size) %>
 
   <br /><br />
 
@@ -35,7 +35,7 @@
   From start to finish! Be realistic. If you say 3 hours, people might have to leave right at the end of 3 hours.<br />
   <!-- <?php // (This'll be better as a slider - look into jquery ones)<br /> ?> -->
 
-  <%= select_tag(:project_requirement["duration"], options_for_select(@possible_durations.map{ |a| [ a[:text], a[:value] ] }, 4), size: @possible_durations.size) %>
+  <%= select_tag("project_requirement[duration]", options_for_select(@possible_durations.map{ |a| [ a[:text], a[:value] ] }, (@project_requirement.duration || 4)), size: @possible_durations.size) %>
 
   <select name="project_requirement[duration]" size="<%= @possible_durations.size %>">
   <% @possible_durations.each do |duration| %>
