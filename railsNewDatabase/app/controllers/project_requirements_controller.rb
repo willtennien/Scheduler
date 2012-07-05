@@ -47,7 +47,7 @@ class ProjectRequirementsController < ApplicationController
     if session[:user_id]
         s = params[:project_requirement][:soundproofness]
         if s
-          params[:project_requirement][:soundproofness] = Soundproofness.new(name: s)
+          params[:project_requirement][:soundproofness] = to_soundproofness s
         else
           params[:project_requirement][:soundproofness] = Soundproofness.new(name: Soundproofness.lowest)
         end
@@ -84,6 +84,7 @@ class ProjectRequirementsController < ApplicationController
   def update
     @project_requirement = ProjectRequirement.find(params[:id])
 
+    params[:project_requirement][:soundproofness] = to_soundproofness params[:project_requirement][:soundproofness]
     respond_to do |format|
       if @project_requirement.update_attributes(params[:project_requirement])
         format.html { redirect_to @project_requirement, notice: 'Project requirement was successfully updated.' }
@@ -110,5 +111,9 @@ class ProjectRequirementsController < ApplicationController
   private 
   def prepare_form
     @possible_durations = [{text: "1 hour", value: 1}].concat (2..8).to_a.map! {|h| {text: "#{h} hours", value: h} }
+  end
+
+  def to_soundproofness string
+    return Soundproofness.new(name: string)
   end
 end

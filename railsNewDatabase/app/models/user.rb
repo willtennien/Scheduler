@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :id, :username, :password, :name, :email, :available_time, :instruments, :spaces, :project_requirements, :project_solutions, :sessions
+  attr_accessible :id, :username, :password, :name, :bio, :email, :available_time, :instruments, :spaces, :project_requirements, :project_solutions, :sessions
   has_one :available_time
   has_many :instruments
   has_many :spaces
@@ -9,4 +9,5 @@ class User < ActiveRecord::Base
 
   has_secure_password
   validates :username, uniqueness: true
+  validates :email, uniqueness: true
 end
