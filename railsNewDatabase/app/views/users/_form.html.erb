@@ -16,16 +16,19 @@
     <%= f.text_field :name, placeholder: "Bob Jones", size: 20 %>
 
     <h4>Add a short description of yourself</h4>
-    <textarea columns="50" rows="8" name="bio" ></textarea>
+    <textarea columns="50" rows="8" name="user[bio]" ></textarea>
 
     <h4>Choose a username</h4>
-    <input type="text" name="username" placeholder="masterjones123">
+    <input type="text" name="user[username]" placeholder="masterjones123">
 
     <h4>Enter an email address</h4>
-    <input type="text" name="email" placeholder="bob.jones@example.com" >
+    <input type="text" name="user[email]" placeholder="bob.jones@example.com" >
 
     <h4>Choose a password</h4>
-    <input type="text" name="password" >
+    <input type="password" name="user[password]" >
+
+    <h4>Confirm Password</h4>
+    <input type="password" name="password_confirmation">
 
     <%= f.submit %>
   </div>
