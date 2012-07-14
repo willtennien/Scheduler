@@ -4,7 +4,7 @@ Tasks
 
 
 Scheduler algorithm
-Design and plan storage, data representation & DB structure
+   There's a working version; improve
 Code the parts of the site that people enter their info
 Times-available UI element
    Have its data be submittable in a form
