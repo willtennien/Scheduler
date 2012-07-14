@@ -3,4 +3,8 @@ class Instrument < ActiveRecord::Base
   belongs_to :user
   belongs_to :instrument_name
   belongs_to :project_solution
+
+  def name
+  	return instrument_name
+  end
 end

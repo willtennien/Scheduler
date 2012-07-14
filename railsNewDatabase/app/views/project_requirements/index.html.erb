@@ -11,7 +11,7 @@
   <tr>
     <td><%= project_requirement.name %></td>
     <td><%= truncate(project_requirement.description, length: 30) %></td>
-    <td><%= link_to 'Show', project_requirement %></td>
+    <td><%= link_to 'More', project_requirement %></td>
     <td><%= link_to 'Edit', edit_project_requirement_path(project_requirement) %></td>
     <td><%= link_to 'Destroy', project_requirement, confirm: "Are you sure you want to delete #{project_requirement.name}? This action cannot be undone.", method: :delete %></td>
   </tr>
