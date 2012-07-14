@@ -9,6 +9,7 @@ RailsNewDatabase::Application.routes.draw do
   resources :users
   resources :sessions
   resources :project_requirements
+  #get "soundproofnesses/new"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

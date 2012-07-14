@@ -4,11 +4,13 @@ class ProjectRequirementsController < ApplicationController
   # GET /project_requirements.json
 
   def index
-    @project_requirements = ProjectRequirement.where(user_id: session[:user_id])
+    check_authentication "Please login to view your projects." do 
+      @project_requirements = ProjectRequirement.where(user_id: session[:user_id])
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @project_requirements }
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @project_requirements }
+      end
     end
   end
 
@@ -54,7 +56,6 @@ class ProjectRequirementsController < ApplicationController
         @project_requirement = ProjectRequirement.new(params[:project_requirement])
         @project_requirement.user_id = session[:user_id]
 
-        print 'PARAMETERS'; p params[:instrument_names]
         #params[:instrument_names] ex/ {name: "guitar", min:1, max: 100}
         params[:instrument_names].each do |instr|
           if InstrumentName.is? instr[:name]
