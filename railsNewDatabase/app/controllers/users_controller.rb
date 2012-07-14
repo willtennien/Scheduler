@@ -44,6 +44,12 @@ class UsersController < ApplicationController
     @submit_text = "Update"
   end
 
+  def edit_schedule
+    @user = User.find(params[:id])
+    check_authentication @user, "Please login to edit your profile."
+    @submit_text = "Update"
+  end
+
   # POST /users
   # POST /users.json
   def create

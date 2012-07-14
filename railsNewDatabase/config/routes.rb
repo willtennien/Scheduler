@@ -6,7 +6,9 @@ RailsNewDatabase::Application.routes.draw do
   #end testing
 
   match '/' => 'Sessions#new'
-  resources :users
+  resources :users do
+    get 'edit_schedule'
+  end
   resources :sessions
   resources :project_requirements
   #get "soundproofnesses/new"
