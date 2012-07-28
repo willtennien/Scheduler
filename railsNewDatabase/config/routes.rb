@@ -7,8 +7,10 @@ RailsNewDatabase::Application.routes.draw do
 
   match '/' => 'Sessions#new'
   resources :users
+  match '/users/*id/edit_schedule' => 'Users#edit_schedule'
   resources :sessions
   resources :project_requirements
+  #get "soundproofnesses/new"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

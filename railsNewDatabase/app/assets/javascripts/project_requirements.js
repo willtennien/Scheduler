@@ -4,9 +4,9 @@ function theSelectorElement(n) { return [ '      <a href="">x</a>', // this one'
 '      <select name="instrument_names[][name]" onchange="instrument_selection_made();">',
 '        <option selected>Pick instrument</option>',
 '      <option>Strings (5 available)</option>',
-'      <option value="Guitar">- - Violin (4 available)</option>',
+'      <option>- - Violin (4 available)</option>',
 '      <option>- - Viola (1 available)</option>',
-'      <option>Guitar (1000 available)</option>',
+'      <option value="Guitar">Guitar (1000 available)</option>',
 '      <option>Cymbals (1 available)</option>',
 '      <option>Vocals (15 available)</option>',
 '      <option>- - Singing (5 available)</option>',
@@ -36,7 +36,7 @@ function instrument_selection_made() {
       
   if (true) {
 
-    // remove the option from all other selectors -- still validate for it tho
+    // remove the option from all other selectors -- still validate for it though.
 
     var newdiv = document.createElement('div');
 

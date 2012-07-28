@@ -1,7 +1,7 @@
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited saving your profile:</h2>
 
       <ul>
       <% @user.errors.full_messages.each do |msg| %>
@@ -13,23 +13,23 @@
 
   <div class="actions">
     <h4>Enter your name</h4>
-    <%= f.text_field :name, placeholder: "Bob Jones", size: 20 %>
+    <%= f.text_field :name, placeholder: "Bob Jones" %>
 
     <h4>Add a short description of yourself</h4>
-    <textarea columns="50" rows="8" name="user[bio]" ></textarea>
+    <%= f.text_area :bio, size: "26x5"%>
 
     <h4>Choose a username</h4>
-    <input type="text" name="user[username]" placeholder="masterjones123">
+    <%= f.text_field :username %>
 
     <h4>Enter an email address</h4>
-    <input type="text" name="user[email]" placeholder="bob.jones@example.com" >
+    <%= f.text_field :email %>
 
     <h4>Choose a password</h4>
-    <input type="password" name="user[password]" >
+    <%= f.text_field :password, type: :password %>
 
     <h4>Confirm Password</h4>
-    <input type="password" name="password_confirmation">
+    <%= f.text_field :password_confirmation, type: :password %>
 
-    <%= f.submit %>
+    <input type="submit" value="<%= @submit_text || "Submit" %>">
   </div>
 <% end %>

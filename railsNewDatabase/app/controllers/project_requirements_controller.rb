@@ -4,11 +4,13 @@ class ProjectRequirementsController < ApplicationController
   # GET /project_requirements.json
 
   def index
-    @project_requirements = ProjectRequirement.where(user_id: session[:user_id])
+    check_authentication "Please login to view your projects." do 
+      @project_requirements = ProjectRequirement.where(user_id: session[:user_id])
 
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @project_requirements }
+      respond_to do |format|
+        format.html # index.html.erb
+        format.json { render json: @project_requirements }
+      end
     end
   end
 
@@ -54,15 +56,8 @@ class ProjectRequirementsController < ApplicationController
         @project_requirement = ProjectRequirement.new(params[:project_requirement])
         @project_requirement.user_id = session[:user_id]
 
-        print 'PARAMETERS'; p params[:instrument_names]
         #params[:instrument_names] ex/ {name: "guitar", min:1, max: 100}
-        params[:instrument_names].each do |instr|
-          if InstrumentName.is? instr[:name]
-            instr[:min].times do
-              InstrumentRequirement.create instrument_name: InstrumentName.new(instr[:name]), project_requirement: @project_requirement
-            end
-          end
-        end
+        @project_requirement.require_instruments_by_name_count params[:instrument_names].map {|instr| {name: instr["name"], min: instr["min"].to_i, max: instr["max"].to_i}}
     else
       check_authentication "Please login to create a new project."
     end
@@ -85,6 +80,9 @@ class ProjectRequirementsController < ApplicationController
     @project_requirement = ProjectRequirement.find(params[:id])
 
     params[:project_requirement][:soundproofness] = to_soundproofness params[:project_requirement][:soundproofness]
+
+    print "INSTRUMENT NAMES"; p params[:instrument_names]
+    @project_requirement.require_instruments_by_name_count params[:instrument_names].map {|instr| {name: instr["name"], min: instr["min"].to_i, max: instr["max"].to_i}}
     respond_to do |format|
       if @project_requirement.update_attributes(params[:project_requirement])
         format.html { redirect_to @project_requirement, notice: 'Project requirement was successfully updated.' }

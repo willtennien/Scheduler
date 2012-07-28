@@ -5,11 +5,25 @@
 <p>Requires soundlevel to be "<%= @project_requirement.soundproofness %>."</p>
 <h4>Required Instruments:</h4>
 <%= "(none)" if @project_requirement.instrument_requirements.empty? %>
-<ul>
-	<% @project_requirement.instrument_requirements.each do |req| %>
-	<li><%= req.instrument_name.value %></li>
+<table>
+	<% reqs = @project_requirement.instrument_requirements.dup %>
+	<% until reqs.empty? %>
+		<% name = reqs.first.instrument_name %>
+		<% 
+			count = 0
+			reqs.dup.each do |req|
+				if req.instrument_name == name 
+					count += 1 
+					reqs.delete req
+				end
+			end
+		%>
+		<tr>
+			<td><%= name %></td>
+			<td><%= count %></td>
+		</tr>
 	<% end %>
-</ul>
+</table>
 
 
 <%= link_to 'Edit', edit_project_requirement_path(@project_requirement) %> |

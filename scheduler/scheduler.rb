@@ -53,6 +53,7 @@ module TW2
 		end
 
 		def value_of_space_with instrument, space, demo
+			raise " ! error: I tried to match #{instrument} and #{space} with #{demo}, but they do not belong to the same person." unless instrument.person == space.person
 			spaces = SpaceCollection.new
 			@people.each do |person|
 				spaces.concat person.spaces
