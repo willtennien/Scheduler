@@ -166,7 +166,7 @@ module TW2
 						if space.name > name
 							@demos.each do |demo|
 								instrument_person_provides = false
-								person.instruments.each do |instrument|									
+								person.instruments.each do |instrument|
 									instrument_person_provides = instrument if demo.requires? instrument.name
 								end
 								if (space.name > demo.required_space) && instrument_person_provides && ((person.schedule.vertex demo.availability).has_contiguous? demo.duration)
