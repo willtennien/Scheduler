@@ -36,7 +36,7 @@ function instrument_selection_made() {
       
   if (true) {
 
-    // remove the option from all other selectors -- still validate for it tho
+    // remove the option from all other selectors -- still validate for it though.
 
     var newdiv = document.createElement('div');
 

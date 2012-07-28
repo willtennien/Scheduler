@@ -1,0 +1,16 @@
+<header>
+	<span class="break" ></span>
+	TW2
+	<% if ((uid = session[:user_id])) %>
+		<span class="break" ></span>
+		<%= link_to "Projects", project_requirements_path %><span class="break" ></span>
+		<%= link_to "Profile", edit_user_path(User.find(uid)) %><span class="break" ></span>
+		<%= link_to "Logout", Session.find_by_user_id(session[:user_id]), method: :delete %><span class="break"></span>
+		<span class="username" ><%= User.find(uid).name || User.find(uid).username %></span><span class="break" ></span>
+	<% else %>
+		<span class="break" ></span>
+		<%= link_to "Login", new_session_path %><span class="break" ></span>
+		<%= link_to "Signup", new_user_path %>
+	<% end %>
+	</tr>
+</header>
