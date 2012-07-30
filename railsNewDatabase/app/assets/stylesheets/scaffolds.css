@@ -38,10 +38,52 @@ body #main {
   margin: 1em;
 }
 
-p, ol, ul, td {
+p, ol, ul {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
   line-height: 18px; }
+
+h1 {
+  padding: 0.4em 0 1em 0;
+}
+
+div.project_requirement_info {
+  padding-bottom: 2em;
+  max-width: 36em;
+  border-radius: 1em;
+  /*background: #EEE;*/
+}
+
+.project_requirement_info .title {
+  max-width: 36em;
+  text-decoration: none;
+  font-weight: bold;
+  background: #CCC;
+  padding: 0.6em 0 0.6em 1em;
+  border-radius: 1em 1em 0em 0em;
+}
+
+.project_requirement_info a {
+  text-decoration: none;
+}
+
+.project_requirement_info .description {
+  padding: 0em 1em;
+}
+
+.project_requirement_info .options {
+  background: #CCC;
+  text-align: right;
+  padding-top: 0.1em;
+  padding-right: 1em;
+  padding-bottom: 0.4em;
+  border-radius: 0em 0em 1em 1em;
+}
+
+.project_requirement_info .options a {
+    text-decoration: none;
+    margin-right: 0.4em;
+}
 
 pre {
   background-color: #eee;
@@ -49,12 +91,12 @@ pre {
   font-size: 11px; }
 
 a {
-  color: #000;
+  color: #333;
   text-decoration: underline;
 }
 
 a:hover {
-  color: #000;
+  color: #444;
   text-decoration: underline;
 }
 

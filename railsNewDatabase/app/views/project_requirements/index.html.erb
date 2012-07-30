@@ -8,13 +8,25 @@
   </tr>
 
 <% @project_requirements.each do |project_requirement| %>
-  <tr>
-    <td><%= project_requirement.name %></td>
-    <td><%= truncate(project_requirement.description, length: 30) %></td>
+  <div class="project_requirement_info">
+    <!-- <h4 class="title"><%= truncate(project_requirement.name, length: 40) %></h4> -->
+    <div class="title">
+      <%= link_to truncate(project_requirement.name, length: 40), project_requirement %>
+    </div>
+    <p class="description"><%= truncate(project_requirement.description, length: 192) %></p>
+    <div class="options">
+      <%= link_to 'More', project_requirement %>
+      <%= link_to 'Edit', edit_project_requirement_path(project_requirement) %>
+      <%= link_to 'Destroy', project_requirement, confirm: "Are you sure you want to delete \"#{project_requirement.name}?\" This action cannot be undone.", method: :delete %>
+    </div>
+  </div>
+  <!-- <tr>
+    <td class="title_cell"><%= truncate(project_requirement.name, length: 40) %></td>
+    <td class="description_cell"><%= truncate(project_requirement.description, length: 80) %></td>
     <td><%= link_to 'More', project_requirement %></td>
     <td><%= link_to 'Edit', edit_project_requirement_path(project_requirement) %></td>
-    <td><%= link_to 'Destroy', project_requirement, confirm: "Are you sure you want to delete #{project_requirement.name}? This action cannot be undone.", method: :delete %></td>
-  </tr>
+    <td><%= link_to 'Destroy', project_requirement, confirm: "Are you sure you want to delete \"#{project_requirement.name}?\" This action cannot be undone.", method: :delete %></td>
+  </tr> -->
 <% end %>
 </table>
 

@@ -17,11 +17,17 @@
   <h3>Description</h3>
   <%= f.text_area :description, size: "50x7" %>
 
-  <div id="someIsh">
+  <div id="instrument_reqs_selection">
     <h3>What instruments do you want on your demo?</h3>
   </div>
 
-  <script type="text/javascript">instrument_selection_made();</script>
+  <% InstrumentName::KNOWN_INSTRUMENTS.each do |instr_name| %>
+    <script type="text/javascript">pushInstrumentName("<%= instr_name %>");</script>
+  <% end %>
+  <% @project_requirement.instrument_requirements.each do |req| %>
+    <script type="text/javascript">appendDiv("<%= req.instrument_name.value %>");</script>
+  <% end %>
+  <script type="text/javascript">appendDiv();</script>
 
   <br /><br />
 
