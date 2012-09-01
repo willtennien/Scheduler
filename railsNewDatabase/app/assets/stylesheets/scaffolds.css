@@ -34,6 +34,12 @@ body {
   margin: 0em;
 }
 
+/*
+textarea {
+  font-family: lucida, verdana, arial, helvetica, sans-serif;
+  font-size: 1em;
+}*/
+
 body #main {
   margin: 1em;
 }
@@ -45,6 +51,45 @@ p, ol, ul {
 
 h1 {
   padding: 0.4em 0 1em 0;
+}
+
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px; }
+
+a {
+  color: #333;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: #444;
+  text-decoration: underline;
+}
+
+div {
+  &.field, &.actions {
+    margin-bottom: 10px; 
+  } 
+}
+
+nav.bottom {
+  margin-top: 1em;
+}
+
+footer {
+  padding: 1em 0 1em 1em;
+  color: #999;
+}
+
+.break {
+  margin-left: 1em;
+}
+
+.form_buttom {
+  margin-top: 1.5em;  
 }
 
 div.project_requirement_info {
@@ -83,31 +128,6 @@ div.project_requirement_info {
 .project_requirement_info .options a {
     text-decoration: none;
     margin-right: 0.4em;
-}
-
-pre {
-  background-color: #eee;
-  padding: 10px;
-  font-size: 11px; }
-
-a {
-  color: #333;
-  text-decoration: underline;
-}
-
-a:hover {
-  color: #444;
-  text-decoration: underline;
-}
-
-div {
-  &.field, &.actions {
-    margin-bottom: 10px; 
-  } 
-}
-
-.break {
-  margin-left: 1em;
 }
 
 #notice {

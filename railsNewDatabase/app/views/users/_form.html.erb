@@ -30,6 +30,8 @@
     <h4>Confirm Password</h4>
     <%= f.text_field :password_confirmation, type: :password %>
 
-    <input type="submit" value="<%= @submit_text || "Submit" %>">
+    <section class="form_buttom">
+      <input type="submit" value="<%= @submit_text || "Submit" %>">
+    </section>
   </div>
 <% end %>
